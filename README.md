@@ -66,7 +66,7 @@ It will look for a payload.txt file in the same directory which can just be duck
 
 ### Other ideas
 - Devices will often disconnect but can simply be connected to again, so might need to add some logic in to handle the _bluetooth.error Connection reset by peer to continue off where it left each time
-``bash
+```bash
 Exception in thread Thread-1 (loop):
 Traceback (most recent call last):
   File "<string>", line 3, in recv

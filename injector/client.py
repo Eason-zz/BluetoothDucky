@@ -7,34 +7,42 @@ from .helpers import log
 
 class L2CAPClient:
   def __init__(self, addr, port):
+    log.debug(f"Initializing L2CAPClient with address: {addr} and port: {port}")
+
     self.addr = addr
     self.port = port
     self.connected = False
     self.sock = None
 
   def close(self):
+    log.debug("Closing L2CAPClient connection")
     if self.connected:
       self.sock.close()
     self.connected = False
     self.sock = None
 
   def send(self, data):
-    timeout = 0.1
-    start = time.time()
-    while (time.time() - start) < timeout:
-      try:
-        self.sock.send(data)
-        log.debug("[TX-%d] %s" % (self.port, binascii.hexlify(data).decode()))
-        return
-      except bluetooth.btcommon.BluetoothError as ex:
-        if ex.errno != 11: # no data available
-          raise ex
-        time.sleep(0.001)
-      except Exception as ex:
-        log.error("[TX-%d] ERROR! %s" % ex)
-        self.connected = False
-    log.error("[TX-%d] ERROR! timed out sending %s" % (self.port, binascii.hexlify(data).decode()))
-
+    try:
+      log.debug(f"Sending data: {data}")
+      timeout = 0.1
+      start = time.time()
+      while (time.time() - start) < timeout:
+        try:
+          self.sock.send(data)
+          log.debug("[TX-%d] %s" % (self.port, binascii.hexlify(data).decode()))
+          return
+        except bluetooth.btcommon.BluetoothError as ex:
+          if ex.errno != 11: # no data available
+            raise ex
+          time.sleep(0.001)
+        except Exception as ex:
+          log.error("[TX-%d] ERROR! %s" % ex)
+          self.connected = False
+      log.error("[TX-%d] ERROR! timed out sending %s" % (self.port, binascii.hexlify(data).decode()))
+    except Exception as e:
+      log.error(f"Error in sending data: {e}")
+      raise
+  
   def recv(self, timeout=0):
     start = time.time()
     while True:
@@ -117,11 +125,11 @@ class KeyboardClient:
   def send_keyboard_report(self, *args):
     self.c19.send(keyboard_report(*args))
 
-  def send_keypress(self, *args, delay=0.004):
+  def send_keypress(self, *args, delay=0.1):
     self.send_keyboard_report(*args)
-    time.sleep(0.004)
+    time.sleep(0.1)
     self.send_keyboard_report()
-    time.sleep(0.004)
+    time.sleep(0.1)
 
   def send_ascii(self, s):
     for c in s:

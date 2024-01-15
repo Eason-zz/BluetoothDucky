@@ -8,23 +8,16 @@ import logging
 import re
 
 import bluetooth
-import dbus
-import dbus.mainloop.glib
-import dbus.service
 
-from gi.repository import GLib
-from injector.hid import Key, Mod
-from injector.hid import keyboard_report, ascii_to_hid
+from injector.hid import keyboard_report
 from multiprocessing import Process
-from pydbus import SystemBus
-from threading import Thread
 from injector.helpers import assert_address, log, run
 from injector.client import KeyboardClient
 from injector.adapter import Adapter
 from injector.agent import PairingAgent
-from injector.hid import Key, Mod
+from injector.hid import Key
 from injector.profile import register_hid_profile
-from injector.ducky_convert import send_string, send_command, get_mod_key, get_key, send_ducky_command
+from injector.ducky_convert import send_string, send_ducky_command
 
 # Global variable to track the current command being processed
 current_command_index = 0
@@ -167,7 +160,6 @@ def execute_payload(client, filename):
         if line.startswith('REM') or not line:
             current_command_index += 1
             continue  # Skip comments and empty lines
-
         try:
             if line.startswith('DEFAULT_DELAY') or line.startswith('DEFAULTDELAY'):
                 default_delay = float(line.split()[1]) / 1000
@@ -178,6 +170,8 @@ def execute_payload(client, filename):
             elif line.startswith('STRING'):
                 string_to_send = line.partition(' ')[2]
                 send_string(client, string_to_send)
+            elif '+' in line:
+                send_ducky_command(client, line)
             else:
                 log.debug(f"Processing command: {line}")  # Debugging log
                 if line in duckyscript_to_hid:

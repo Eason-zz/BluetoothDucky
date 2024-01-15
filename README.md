@@ -65,6 +65,4 @@ It will look for a payload.txt file in the same directory which can just be duck
 
 
 ### Other ideas
-
-My best guess as to the current issue:
-- When it connets to android, it takes a second or so to process the keyboard connecting. This causes an issue with sending commands and shortcuts. We need to add a live delay rather than a delay between commands.
+Implement a step function to check the last letter of the payload line sent, so we can resend/continue from there on failure rather than the entire line

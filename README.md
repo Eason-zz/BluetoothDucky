@@ -7,6 +7,8 @@ This is an implementation of the CVE discovered by marcnewlin
 - I have created a ducky_convert.py to try not to modify the hid.py file as much as I can for future usage.
 - Still working on a few payload ideas for it.
 
+- I have it running on a Raspberry Pi 4 using the default bluetooth module in it. I have tested it against every single phone my friends have, and it works. The only issue I have found is with an NZ based phone brand called Vodafone which blocks it by default even though the phone hasn't been turned on in years (Asks for pairing) which is hilarious that is the most secure one. 
+
 Still have to adjust for ALL ducky related wording/terms but limited on devices for testing.
 
 ```bash

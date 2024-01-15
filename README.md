@@ -10,6 +10,7 @@ This is an implementation of the CVE discovered by marcnewlin
 Still have to adjust for ALL ducky related wording/terms but limited on devices for testing.
 
 ```bash
+REM this is just a comment
 string test123
 ENTER
 ```

@@ -3,7 +3,7 @@ import bluetooth
 import time
 from threading import Thread
 from injector.hid import keyboard_report, ascii_to_hid
-from .helper import log
+from .helpers import log
 
 class L2CAPClient:
   def __init__(self, addr, port):

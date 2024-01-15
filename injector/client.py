@@ -42,7 +42,7 @@ class L2CAPClient:
     except Exception as e:
       log.error(f"Error in sending data: {e}")
       raise
-  
+
   def recv(self, timeout=0):
     start = time.time()
     while True:

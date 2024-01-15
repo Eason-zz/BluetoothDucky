@@ -1,0 +1,6 @@
+REM open a text field on the android device to test if it is working
+DELAY 1000
+STRING test1
+STRING test2
+STRING test3
+STRING test4

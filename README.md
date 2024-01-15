@@ -62,3 +62,14 @@ sudo python3 BluetoothDucky.py --scan
 ```
 
 It will look for a payload.txt file in the same directory which can just be ducky script - try something simple provided in this repo to start.
+
+
+### Other ideas
+- Devices will often disconnect but can simply be connected to again, so might need to add some logic in to handle the _bluetooth.error Connection reset by peer to continue off where it left each time
+``bash
+Exception in thread Thread-1 (loop):
+Traceback (most recent call last):
+  File "<string>", line 3, in recv
+_bluetooth.error: (104, 'Connection reset by peer')
+```  
+  

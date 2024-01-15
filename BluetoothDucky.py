@@ -34,7 +34,7 @@ def parse_arguments():
     parser.add_argument("-i", "--interface", required=False)
     parser.add_argument("-t", "--target", required=False)
     parser.add_argument("--scan", action="store_true", help="Scan for available Bluetooth devices")
-    
+
     args = parser.parse_args()
 
     if args.scan:

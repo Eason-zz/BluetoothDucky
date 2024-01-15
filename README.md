@@ -1,6 +1,8 @@
 # BluetoothDucky
 CVE-2023-45866 - BluetoothDucky implementation (Using DuckyScript)
 
+- Unauthenticated bluetooth remote code execution. (In short, run keyboard commands without pairing with their device)
+
 This is an implementation of the CVE discovered by marcnewlin 
 [https://github.com/marcnewlin/hi_my_name_is_keyboard]
 
